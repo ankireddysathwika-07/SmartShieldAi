@@ -11,14 +11,14 @@ dotenv.config();
 let aiClient: GoogleGenAI | null = null;
 function getAi(): GoogleGenAI | null {
   if (!aiClient) {
-    let key = process.env.GEMINI_API_KEY;
-    // Fallback to user provided key if environment secret is a placeholder or not set
-    if (!key || key === "MY_GEMINI_API_KEY" || key === "") {
-      key = "AQ.Ab...........";
-    }
-    if (key && key !== "MY_GEMINI_API_KEY") {
-      aiClient = new GoogleGenAI({
-        apiKey: key,
+   let key = process.env.GEMINI_API_KEY;
+
+if (!key || key === "MY_GEMINI_API_KEY") {
+    throw new Error("GEMINI_API_KEY is not configured");
+}
+
+aiClient = new GoogleGenAI({
+    apiKey: key,
         httpOptions: {
           headers: {
             "User-Agent": "aistudio-build",
