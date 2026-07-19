@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      (function() {
+        var customFetch = window.fetch;
+        function setupFetch(obj) {
+          try {
+            if (obj) {
+              var desc = Object.getOwnPropertyDescriptor(obj, 'fetch');
+              if (!desc || desc.configurable) {
+                Object.defineProperty(obj, 'fetch', {
+                  get: function() { return customFetch; },
+                  set: function(val) { customFetch = val; },
+                  configurable: true,
+                  enumerable: true
+                });
+              }
+            }
+          } catch (e) {
+            console.warn('Failed to patch fetch on:', obj, e);
+          }
+        }
+        setupFetch(window);
+        if (typeof globalThis !== 'undefined') setupFetch(globalThis);
+        if (typeof self !== 'undefined') setupFetch(self);
+        if (typeof global !== 'undefined') setupFetch(global);
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SmartShield AI — Stop Scam Attacks, Phishing, & Fraud</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-[#FAFBFD] text-slate-900 antialiased min-h-screen">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
