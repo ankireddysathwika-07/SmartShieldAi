@@ -14,7 +14,7 @@ function getAi(): GoogleGenAI | null {
     let key = process.env.GEMINI_API_KEY;
     // Fallback to user provided key if environment secret is a placeholder or not set
     if (!key || key === "MY_GEMINI_API_KEY" || key === "") {
-      key = "AQ.Ab8RN6JYl8hl1l0dWBUvu1rzAIt1HnY2afn88UHlc76KVph2kg";
+      key = "AQ.Ab...........";
     }
     if (key && key !== "MY_GEMINI_API_KEY") {
       aiClient = new GoogleGenAI({
